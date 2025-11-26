@@ -3,3 +3,10 @@
 export function inputError(){
     alert("You must enter only one number from 1 to 10")
 }
+
+export function win(){
+
+}
+export function lost(){
+    
+}
