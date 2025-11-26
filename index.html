@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="icon" href="data:image/svg+xml,
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+      <text y='0.9em' font-size='90'>🎲</text>
+    </svg>
+    ">
+
+
     <title>Lotery</title>
 </head>
+
 <body>
-    <h1>
-        Lottery
-    </h1>
-    <h4>To play, enter a number to see if you get lucky and it matches the random number.</h4>
-    <input type="number" placeholder="Enter a number from 1 to 10"  id="inputNumber">
+    <h1>Lottery</h1>
+    <h4>
+        To play, enter a number to see if you get lucky and it matches the random
+        number.
+    </h4>
+    <input type="number" placeholder="Enter a number from 1 to 10" id="inputNumber" />
     <button id="buttonFindOut">Find out</button>
     <div id="result"></div>
 
     <script src="./index.js" type="module"></script>
     <script src="./scripts/lotteryLogic.js" type="module"></script>
-    
 </body>
+
 </html>

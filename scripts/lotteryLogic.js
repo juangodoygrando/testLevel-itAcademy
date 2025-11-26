@@ -1,7 +1,7 @@
 // lógica de negocio
-export let jugadas = [];
+export let gameHistory = [];
 
-export function validacion(input) {
+export function validation(input) {
   if (isNaN(input)) {
     return false;
   }
@@ -17,39 +17,37 @@ export function numRandom() {
   return numRandom;
 }
 
-export function comparison(numAleatorio, numIngresado) {
-  if (numAleatorio === numIngresado) {
-    jugadas.push({
-      message: "Win",
+export function checkWin(randomNumber, userNumber) {
+  if (randomNumber === userNumber) {
+    gameHistory.push({
+      message: "win",
       data: {
-        userNumber: numIngresado,
-        randomNumber: numAleatorio,
+        userNumber: userNumber,
+        randomNumber: randomNumber,
       },
     });
     return true;
   } else {
-    jugadas.push({
-      message: "Lost",
+    gameHistory.push({
+      message: "lost",
       data: {
-        userNumber: numIngresado,
-        randomNumber: numAleatorio,
+        userNumber: userNumber,
+        randomNumber: randomNumber,
       },
     });
     return false;
   }
 }
 
-export function printJugada() {
-  let divElement = document.getElementById("result");
+export function generatePlayHistoryHTML() {
+  let playHistory = "";
+  let counter = 1;
 
-  let listaJugadas = "";
-
-  for (let juego of jugadas) {
-    listaJugadas += `<br>Jugada ${juego.message} Numero Random: ${juego.data.randomNumber} Numero Ingresado: ${juego.data.userNumber}<br>`;
-    
+  for (let game of gameHistory) {
+    playHistory += `<br>Game Nº ${counter++} <strong>${game.message.toUpperCase()}</strong>  Random number:${
+      game.data.randomNumber
+    } User number: ${game.data.userNumber}<br>`;
   }
 
-  console.log(listaJugadas);
-
-  divElement.innerHTML = listaJugadas;
+  return playHistory;
 }
