@@ -1,5 +1,5 @@
 // lógica de negocio
-let jugadas = [];
+export let jugadas = [];
 
 export function validacion(input) {
   if (isNaN(input)) {
@@ -20,7 +20,7 @@ export function numRandom() {
 export function comparison(numAleatorio, numIngresado) {
   if (numAleatorio === numIngresado) {
     jugadas.push({
-      message: "win",
+      message: "Win",
       data: {
         userNumber: numIngresado,
         randomNumber: numAleatorio,
@@ -37,4 +37,19 @@ export function comparison(numAleatorio, numIngresado) {
     });
     return false;
   }
+}
+
+export function printJugada() {
+  let divElement = document.getElementById("result");
+
+  let listaJugadas = "";
+
+  for (let juego of jugadas) {
+    listaJugadas += `<br>Jugada ${juego.message} Numero Random: ${juego.data.randomNumber} Numero Ingresado: ${juego.data.userNumber}<br>`;
+    
+  }
+
+  console.log(listaJugadas);
+
+  divElement.innerHTML = listaJugadas;
 }
