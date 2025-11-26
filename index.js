@@ -1,27 +1,35 @@
 // manager
-import { inputError, win,lost } from "./scripts/lotteryUi.js";
-import { validacion,numRandom,comparison,jugadas,printJugada} from "./scripts/lotteryLogic.js";
+import { inputError, win, lost } from "./scripts/lotteryUi.js";
+import {
+  validacion,
+  numRandom,
+  comparison,
+  jugadas,
+  printJugada,
+} from "./scripts/lotteryLogic.js";
 
 const buttonFindOut = document.getElementById("buttonFindOut");
 
-
 buttonFindOut.addEventListener("click", () => {
+  try {
+    const numeroIngresado = document.getElementById("inputNumber").value;
 
-const numeroIngresado = document.getElementById("inputNumber").value;
+    console.log(numeroIngresado);
+    if (!validacion(numeroIngresado)) {
+      inputError();
+      return;
+    }
+    console.log(jugadas);
 
-  console.log(numeroIngresado);
-  if (!validacion(numeroIngresado)) {
-    inputError();
-    return;
-  }
-  console.log(jugadas)
-
-  if(comparison(numRandom(),parseFloat(numeroIngresado))){
-    console.log(jugadas)
-    win()
-    printJugada()
-  }else{
-    lost()
-    printJugada()
+    if (comparison(numRandom(), parseFloat(numeroIngresado))) {
+      console.log(jugadas);
+      win();
+      printJugada();
+    } else {
+      lost();
+      printJugada();
+    }
+  } catch (error){
+    console.error("Ocurrió un error inesperado:", error);
   }
 });
