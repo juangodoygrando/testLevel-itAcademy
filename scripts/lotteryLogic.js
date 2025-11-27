@@ -1,4 +1,8 @@
 // lógica de negocio
+
+import { win, lost,inputError } from "./lotteryUi.js";
+
+
 export let gameHistory = [];
 
 export function validation(input) {
@@ -50,4 +54,19 @@ export function generatePlayHistoryHTML() {
   }
 
   return playHistory;
+}
+
+export function lottery(userInput) {
+  if (!validation(userInput)) {
+    inputError();
+    return;
+  }
+
+  if (checkWin(numRandom(), inputNumber)) {
+    win();
+  } else {
+    lost();
+  }
+
+  return gameHistory[gameHistory.length-1]
 }
