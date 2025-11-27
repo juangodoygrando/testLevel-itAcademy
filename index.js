@@ -1,5 +1,11 @@
 // manager
-import { inputError, win, lost, renderPlays } from "./scripts/lotteryUi.js";
+import {
+  inputError,
+  win,
+  lost,
+  renderPlays,
+  resertResultDiv,
+} from "./scripts/lotteryUi.js";
 import {
   validation,
   numRandom,
@@ -11,6 +17,7 @@ const buttonFindOut = document.getElementById("buttonFindOut");
 
 buttonFindOut.addEventListener("click", () => {
   try {
+    resertResultDiv();
     const inputNumber = parseFloat(
       document.getElementById("inputNumber").value
     );
@@ -22,11 +29,19 @@ buttonFindOut.addEventListener("click", () => {
 
     if (checkWin(numRandom(), inputNumber)) {
       win();
-      renderPlays(generatePlayHistoryHTML());
     } else {
       lost();
-      renderPlays(generatePlayHistoryHTML());
     }
+  } catch (error) {
+    console.error("An unexpected error occurred:", error);
+  }
+});
+
+const buttonViewHistory = document.getElementById("viewHistory");
+
+buttonViewHistory.addEventListener("click", () => {
+  try {
+    renderPlays(generatePlayHistoryHTML());
   } catch (error) {
     console.error("An unexpected error occurred:", error);
   }

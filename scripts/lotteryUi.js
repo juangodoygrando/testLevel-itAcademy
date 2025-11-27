@@ -21,8 +21,11 @@ export function lost() {
     icon: "error",
   });
 }
+let playContainer = document.getElementById("result");
 export function renderPlays(generatePlayHistoryHTML) {
-  let playContainer = document.getElementById("result");
-
   playContainer.innerHTML = generatePlayHistoryHTML;
+}
+
+export function resertResultDiv() {
+  playContainer.innerHTML = "";
 }
