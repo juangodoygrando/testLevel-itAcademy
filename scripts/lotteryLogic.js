@@ -1,9 +1,6 @@
 // lógica de negocio
 
-import { win, lost,inputError } from "./lotteryUi.js";
-
-
-export let gameHistory = [];
+import { gameHistory } from "./gameHistory.js";
 
 export function validation(input) {
   if (isNaN(input)) {
@@ -24,7 +21,7 @@ export function numRandom() {
 export function checkWin(randomNumber, userNumber) {
   if (randomNumber === userNumber) {
     gameHistory.push({
-      message: "win",
+      message: "Win",
       data: {
         userNumber: userNumber,
         randomNumber: randomNumber,
@@ -43,30 +40,15 @@ export function checkWin(randomNumber, userNumber) {
   }
 }
 
-export function generatePlayHistoryHTML() {
-  let playHistory = "";
-  let counter = 1;
-
-  for (let game of gameHistory) {
-    playHistory += `<br>Game Nº ${counter++} <strong>${game.message.toUpperCase()}</strong>  Random number:${
-      game.data.randomNumber
-    } User number: ${game.data.userNumber}<br>`;
+export function lottery(userNumber, randomNumber = numRandom()) {
+  if (!validation(userNumber)) {
+    return { message: "error" };
   }
 
-  return playHistory;
-}
+  const win = checkWin(randomNumber, userNumber);
 
-export function lottery(userInput) {
-  if (!validation(userInput)) {
-    inputError();
-    return;
-  }
-
-  if (checkWin(numRandom(), inputNumber)) {
-    win();
-  } else {
-    lost();
-  }
-
-  return gameHistory[gameHistory.length-1]
+  return {
+    message: win ? "Win" : "Lost",
+    data: { userNumber, randomNumber },
+  };
 }

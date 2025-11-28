@@ -1,8 +1,8 @@
 // manager
-import { renderPlays, resertResultDiv } from "./scripts/lotteryUi.js";
-import { generatePlayHistoryHTML,lottery } from "./scripts/lotteryLogic.js";
+import { renderPlays, resertResultDiv, checked } from "./scripts/lotteryUi.js";
 
 const buttonFindOut = document.getElementById("buttonFindOut");
+const buttonViewHistory = document.getElementById("viewHistory");
 
 buttonFindOut.addEventListener("click", () => {
   try {
@@ -10,17 +10,15 @@ buttonFindOut.addEventListener("click", () => {
     const inputNumber = parseFloat(
       document.getElementById("inputNumber").value
     );
-    lottery(inputNumber);
+    checked(inputNumber);
   } catch (error) {
     console.error("An unexpected error occurred:", error);
   }
 });
 
-const buttonViewHistory = document.getElementById("viewHistory");
-
 buttonViewHistory.addEventListener("click", () => {
   try {
-    renderPlays(generatePlayHistoryHTML());
+    renderPlays();
   } catch (error) {
     console.error("An unexpected error occurred:", error);
   }

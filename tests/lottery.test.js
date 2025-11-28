@@ -1,74 +1,75 @@
-// Puedes confirgurar estos casos de test a la tecnología que más te guste, yo te propongo jest
-import { expect, describe, test } from "@jest/globals"; 
-import { lottery } from "../src/lottery";
+import { expect, describe, test } from "@jest/globals";
+import { lottery } from "../scripts/lotteryLogic.js";
 
-describe('lottery feature tests', () => {
-       
-        test('returns win when user number equals random number', () => {
-        //Gherking test
-         /**
-         * Scenario: Usuario gana la lotería
-         * Given el usuario ingresa el número 7
-         * When el sistema genera aleatoriamente el número 7
-         * Then se muestra "Win"
-         */
+describe("lottery feature tests", () => {
+  test("returns win when user number equals random number", () => {
+    // Arrange
+    let userInput = 7;
+    let expected = {
+      message: "Win",
+      data: {
+        userNumber: 7,
+        randomNumber: 7,
+      },
+    };
 
-        // Arrange
-        let userInput = 7;
-        let expected = {
-            message: "Win", 
-            data: {
-                userNumber: userInput, 
-  		        randomNumber: 7 
-            }
-        }
+    // Act
+    let result = lottery(userInput, 7);
 
-        // Act
-        let result = lottery(userInput); 
-    
-        // Assert
-        expect(typeof result.data.userNumber).toBe("number");
-        expect(result).toEqual(expected);
-        expect(result.data.userNumber).toEqual(expected.data.randomNumber);
-        expect(result.data.result).toBe("Win");
-    });
+    // Assert
+    expect(typeof result.data.userNumber).toBe("number");
+    expect(result).toEqual(expected);
+    expect(result.data.userNumber).toEqual(expected.data.randomNumber);
+    expect(result.message).toBe("Win");
+  });
 
+  test("returns lose when user number is different from random number", () => {
+    // Arrange
+    let userInput = 4;
+    let expected = {
+      message: "Lost",
+      data: {
+        userNumber: userInput,
+        randomNumber: 2,
+      },
+    };
 
-        test('returns lose when user number is different from random number', () => {
-        //Gherking test
-         /**
-         * Scenario: Usuario pierde la lotería
-         * Given el usuario ingresa el número 4
-         * When el sistema genera un número aleatorio distinto, por ejemplo 2
-         * Then se muestra "Lose"
-         */
+    // Act
+    let result = lottery(userInput, 2);
 
-            // Arrange
+    // Assert
+    expect(typeof result.data.userNumber).toBe("number");
+    expect(result).toEqual(expected);
+    expect(result.data.userNumber).not.toEqual(expected.data.randomNumber);
+    expect(result.message).toBe("Lost");
+  });
 
-            // Act
-    
-            // Assert
-    
-        })
+  test("returns error when input is not a number", () => {
+    // Arrange
+    let userInput = "Hola";
+    let expected = { message: "error" };
 
-        test('returns error when input is not a number', () => {
-            //Gherking test
-            /**
-             * Scenario: Entrada no numérica
-             * Given la entrada "Hola"
-             * When el usuario intenta procesar la jugada
-             * Then se muestra un mensaje de error
-             */
-        })
+    // Act
+    let result = lottery(userInput);
 
-        test('returns error when number is outside valid range', () => {
-            //Gherking test
-            /**
-             * Scenario: Número fuera de rango
-             * Given el usuario ingresa el número 20
-             * When el sistema valida el número
-             * Then se muestra un mensaje indicando que debe ser entre 1 y 10
-             */
-        })
-    }
-)
+    // Assert
+    expect(typeof result).not.toBe("number");
+    expect(result).toEqual(expected);
+    expect(result).not.toHaveProperty("data");
+    expect(result.message).toBe("error");
+  });
+
+  test("returns error when number is outside valid range", () => {
+    let userInput = 20;
+    let expected = { message: "error" };
+
+    // Act
+    let result = lottery(userInput);
+
+    // Assert
+    expect(result).not.toBeNull();
+    expect(typeof result).toBe("object");
+    expect(result).toEqual(expected);
+    expect(result).not.toHaveProperty("data");
+  });
+});
